@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lab4: Operations</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Operations</h3>
+        </div>
+        <div class="col-md-12" style="margin-bottom: 12px">
+            <a th:href="@{/doctors}" class="btn btn-warning">Go to Doctors</a>
+        </div>
+
+        <div class="col-md-12" style="margin-bottom: 20px">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Queries</h4>
+                    <div class="accordion" id="accordionExample"  th:each="option : ${queries}">
+                        <div class="card">
+                            <div class="card-header px-1" th:id="'headingOne1'+${option.getId()}">
+                                <h2 class="mb-0">
+                                    <button
+
+                                            th:utext="${option.getTitle()}"
+                                            class="btn btn-link text-wrap text-left" type="button" data-toggle="collapse" th:data-target="'#collapseOne1'+${option.getId()}" aria-expanded="true" th:aria-controls="'collapseOne1'+${option.getId()}">
+                                    </button>
+
+                                </h2>
+                            </div>
+
+                            <div th:id="'collapseOne1'+${option.getId()}" class="px-1"
+                                 th:classappend="${!option.isSelected()} ? 'collapse' : ''"
+                                 th:aria-labelledby="'headingOne1'+${option.getId()}" data-parent="#accordionExample">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <a style="margin-left: 10px;margin-top: 20px;" class="btn btn-success" th:href="@{'/query?action='+${option.getId()}}">
+                                            Do action
+                                        </a>
+                                    </div>
+                                    <div class="col-md-12 card-body">
+                                        <code th:utext="${option.getQuery()}">
+
+                                        </code>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        <h4>Result</h4>
+                    </div>
+                    <div class="col-md-12" th:if="${response != null}">
+                            <pre th:text="${response}"></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
